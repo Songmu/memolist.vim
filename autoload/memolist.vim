@@ -263,10 +263,10 @@ let s:default_template = [
 \]
 
 function! s:apply_template(template, items)
-  let mx = '{{_\(\w\+\)_}}'
+  let mx = '{{[._]\(\w\{-1,}\)_\?}}'
   return map(copy(a:template), "
   \  substitute(v:val, mx,
-  \   '\\=has_key(a:items, submatch(1)) ? a:items[submatch(1)] : submatch(0)', 'g')
+  \   '\\=has_key(a:items, tolower(submatch(1))) ? a:items[tolower(submatch(1))] : submatch(0)', 'g')
   \")
 endfunction
 
